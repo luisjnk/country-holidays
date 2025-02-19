@@ -5,8 +5,8 @@ export function openHolidayAPI() {
       .then(response => response.json())
   }
 
-  function getHolidaysByYearCountry(year: number, countryCode: string) {
-    return fetch(`https://date.nager.at/Api/v2/PublicHolidays/${year}/${countryCode}`)
+  function getHolidaysByYearCountry(countryCode: string) {
+    return fetch(`https://openholidaysapi.org/PublicHolidays?countryIsoCode=${countryCode}&validFrom=2025-01-01&validTo=2025-12-31`)
       .then(response => response.json())
   }
 

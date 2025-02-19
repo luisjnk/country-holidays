@@ -13,7 +13,12 @@ type Country = {
   officialLanguage: string[];
 }
 
-export function SelectCountries() {
+interface SelectCountriesProps {
+  handleSelectCountry: (countryISO: string, countryName: string) => void;
+}
+
+export function SelectCountries({handleSelectCountry}: SelectCountriesProps) {
+
   const query = useQuery<Country[]>({ queryKey: ['countries'], queryFn: openHolidayAPI().getAllCountries })
 
   const getCountryName = useMemo(() => {
@@ -22,10 +27,14 @@ export function SelectCountries() {
     };
   }, []);
 
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    handleSelectCountry(e.target.value, e.target.options[e.target.selectedIndex].text)
+  }
+
   return (
     <div>
-      <select>
-        {query.data?.map((county) => <option value={getCountryName(county)  } key={county.isoCode}>{getCountryName(county)}</option>)}
+      <select value="" onChange={onChange}>
+        {query.data?.map((country) => <option value={country.isoCode} key={country.isoCode}>{getCountryName(country)}</option>)}
       </select>
     </div>
   );
