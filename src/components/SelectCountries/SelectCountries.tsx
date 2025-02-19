@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { openHolidayAPI } from "../../api";
+import { fetchAllCountries } from "../../api";
 import { useMemo } from "react";
 
 type CountryName = {
@@ -19,7 +19,7 @@ interface SelectCountriesProps {
 
 export function SelectCountries({handleSelectCountry}: SelectCountriesProps) {
 
-  const query = useQuery<Country[]>({ queryKey: ['countries'], queryFn: openHolidayAPI().getAllCountries })
+  const query = useQuery<Country[]>({ queryKey: ['countries'], queryFn: fetchAllCountries })
 
   const getCountryName = useMemo(() => {
     return (country: Country) => {

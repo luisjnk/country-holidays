@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { openHolidayAPI } from "../../api";
+import { fetchHolidaysByYearCountry } from "../../api";
 
 type HolidayName = {
   language: string;
@@ -25,7 +25,7 @@ interface HolidaysListProps {
 export function HolidaysList({ countryName, countryISO }: HolidaysListProps) {
   const query = useQuery<Holiday[]>({
     queryKey: ['holidaysByCountry', countryISO],
-    queryFn: () => openHolidayAPI().getHolidaysByYearCountry(countryISO)
+    queryFn: () => fetchHolidaysByYearCountry(countryISO)
   })
 
   const getHolidayText = (holiday: Holiday) => {
